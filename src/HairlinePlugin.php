@@ -1,6 +1,6 @@
 <?php
 
-namespace WisdomIT\Hairline;
+namespace NikosStuff\NsTheme;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;

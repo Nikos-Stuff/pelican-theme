@@ -1,6 +1,6 @@
 <?php
 
-namespace WisdomIT\Hairline\Providers;
+namespace NikosStuff\NsTheme\Providers;
 
 use App\Enums\ConsoleWidgetPosition;
 use App\Filament\Server\Pages\Console;
@@ -10,10 +10,10 @@ use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use WisdomIT\Hairline\Filament\Server\Widgets\HairlineCpuChart;
-use WisdomIT\Hairline\Filament\Server\Widgets\HairlineMemoryChart;
-use WisdomIT\Hairline\Filament\Server\Widgets\HairlineNetworkChart;
-use WisdomIT\Hairline\Filament\Server\Widgets\HairlineServerOverview;
+use NikosStuff\NsTheme\Filament\Server\Widgets\HairlineCpuChart;
+use NikosStuff\NsTheme\Filament\Server\Widgets\HairlineMemoryChart;
+use NikosStuff\NsTheme\Filament\Server\Widgets\HairlineNetworkChart;
+use NikosStuff\NsTheme\Filament\Server\Widgets\HairlineServerOverview;
 
 /**
  * 네트워크 장비 콘솔의 정보 밀도를 참고한 테마 (#61).

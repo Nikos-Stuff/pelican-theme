@@ -1,6 +1,6 @@
 <?php
 
-namespace WisdomIT\Hairline\Filament\Server\Widgets;
+namespace NikosStuff\NsTheme\Filament\Server\Widgets;
 
 use App\Filament\Server\Widgets\ServerCpuChart;
 
