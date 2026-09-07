@@ -1,6 +1,14 @@
 document.addEventListener("mousemove", (e) => {
-  const target = e.target.closest("button, a, [data-glow], .glow-card");
+  // Added Filament input wrappers, native inputs, selects, fieldsets, and dropdowns
+  const selector = "button, a, [data-glow], .glow-card, .fi-input-wrp, .fi-badge, .fi-dropdown-panel, input, select, textarea";
+  let target = e.target.closest(selector);
   if (!target) return;
+
+  // If the target is a bare void element (input/select/textarea), target its parent wrapper instead
+  if (["INPUT", "SELECT", "TEXTAREA"].includes(target.tagName)) {
+    target = target.closest(".fi-input-wrp") || target.parentElement;
+    if (!target) return;
+  }
 
   if (!target.hasAttribute("data-glow-initialized")) {
     const computedStyle = window.getComputedStyle(target);
@@ -34,7 +42,7 @@ document.addEventListener("mousemove", (e) => {
       borderRadius: `calc(${borderRadius} + ${offsetSize})`,
       pointerEvents: "none",
       opacity: "0",
-      zIndex: "1",
+      zIndex: "10",
       transition: "opacity 0.3s ease",
       background:
         "radial-gradient(280px circle at var(--x, 0px) var(--y, 0px), rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.02) 60%, transparent 100%)",
