@@ -5,6 +5,17 @@ div[wire\:partial="schema-component::form.top_navigation"] {
     display: none !important;
 }
 
+/* Force the main toggle container to 6px corners */
+.fi-toggle {
+    border-radius: 6px !important;
+}
+
+/* Force the inner sliding handle to match the 6px radius */
+.fi-toggle > div,
+.fi-toggle > div > div {
+    border-radius: 4px !important;
+}
+
 /* ═══ Hide global scrollbars while preserving scroll functionality ═══ */
 html {
     scrollbar-gutter: stable;
