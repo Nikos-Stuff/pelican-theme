@@ -3,7 +3,7 @@
     "name": "Niko's Stuff Theme",
     "author": "Niko",
     "description": "Shadowless, hairline-bordered, high-density theme for Pelican.",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "panels": [
         "admin",
         "app",
