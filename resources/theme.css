@@ -59,7 +59,7 @@ body, .fi-body {
     font-weight: 500;
 }
 :where(.dark) .fi-btn { border-color: rgba(255, 255, 255, 0.16); }
-.fi-input, .fi-select-input, .fi-input-wrp { border-radius: 4px; }
+.fi-input, .fi-select-input, .fi-input-wrp { border-radius: 4px; overflow: visible !important; }
 .fi-badge { border-radius: 4px; }
 
 .fi-body { background-color: #F8F9FA; }

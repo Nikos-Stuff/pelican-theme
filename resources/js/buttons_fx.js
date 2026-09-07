@@ -34,7 +34,7 @@ document.addEventListener("mousemove", (e) => {
       borderRadius: `calc(${borderRadius} + ${offsetSize})`,
       pointerEvents: "none",
       opacity: "0",
-      zIndex: "5",
+      zIndex: "1",
       transition: "opacity 0.3s ease",
       background:
         "radial-gradient(280px circle at var(--x, 0px) var(--y, 0px), rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.05) 60%, transparent 100%)",
