@@ -20,30 +20,27 @@ document.addEventListener("mousemove", (e) => {
       target.style.position = "relative";
     }
 
-    // FIX 1: Ensure container allows overflow so the 1px outline layer isn't clipped
-    target.style.overflow = "visible";
-
     const borderGlow = document.createElement("span");
     borderGlow.classList.add("border-glow-layer");
     const offsetSize = "1px";
 
     Object.assign(borderGlow.style, {
       position: "absolute",
-      top: offsetSize,
-      left: offsetSize,
-      right: offsetSize,
-      bottom: offsetSize,
+      top: `-${offsetSize}`,
+      left: `-${offsetSize}`,
+      right: `-${offsetSize}`,
+      bottom: `-${offsetSize}`,
       padding: "1px",
-      borderRadius: borderRadius,
-      pointerEvents: "none", // Ensures clicks pass directly through to inputs
+      borderRadius: `calc(${borderRadius} + ${offsetSize})`,
+      pointerEvents: "none",
       opacity: "0",
-      zIndex: "2",
+      zIndex: "5",
       transition: "opacity 0.3s ease",
       background:
         "radial-gradient(280px circle at var(--x, 0px) var(--y, 0px), rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.05) 60%, transparent 100%)",
-      WebkitMask:
-        "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-      WebkitMaskComposite: "xor",
+      webkitMask:
+        "linear-gradient(#fff, #fff) content-box, linear-gradient(#fff, #fff)",
+      webkitMaskComposite: "xor",
       maskComposite: "exclude",
     });
 
@@ -52,7 +49,6 @@ document.addEventListener("mousemove", (e) => {
     target.addEventListener("mousemove", (elEvent) => {
       if (elEvent.currentTarget === target) {
         const rect = target.getBoundingClientRect();
-        // Use client coordinates relative to bounding rect for precise placement
         const x = elEvent.clientX - rect.left;
         const y = elEvent.clientY - rect.top;
         
