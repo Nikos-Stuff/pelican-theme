@@ -1,5 +1,10 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
 
+/* I'm lazy ahh boi  */
+div[wire\:partial="schema-component::form.top_navigation"] {
+    display: none !important;
+}
+
 /* ═══ Hide global scrollbars while preserving scroll functionality ═══ */
 html {
     scrollbar-gutter: stable;
