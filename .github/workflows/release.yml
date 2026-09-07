@@ -1,0 +1,29 @@
+name: Build Release Asset
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.x'
+
+      - name: Run release build script
+        run: bash scripts/build-release.sh
+
+      - name: Upload zip to GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: dist/*.zip
