@@ -14,7 +14,7 @@ class HairlinePlugin implements Plugin
 {
     public function getId(): string
     {
-        return 'hairline';
+        return 'ns-theme';
     }
 
     public function register(Panel $panel): void {}
