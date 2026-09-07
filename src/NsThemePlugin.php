@@ -10,7 +10,7 @@ use Filament\Panel;
  * 팔레트·CSS 는 프로바이더(HairlineProvider)가 전역으로 처리한다.
  * (plugin.json 의 `class` 는 필수 스키마다 — 없으면 "Undefined array key" 로 죽는다. 실측)
  */
-class HairlinePlugin implements Plugin
+class NsThemePlugin implements Plugin
 {
     public function getId(): string
     {
