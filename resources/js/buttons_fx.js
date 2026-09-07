@@ -1,10 +1,8 @@
 document.addEventListener("mousemove", (e) => {
-  // Added Filament input wrappers, native inputs, selects, fieldsets, and dropdowns
   const selector = "button, a, [data-glow], .glow-card, .fi-input-wrp, .fi-badge, .fi-dropdown-panel, input, select, textarea";
   let target = e.target.closest(selector);
   if (!target) return;
 
-  // If the target is a bare void element (input/select/textarea), target its parent wrapper instead
   if (["INPUT", "SELECT", "TEXTAREA"].includes(target.tagName)) {
     target = target.closest(".fi-input-wrp") || target.parentElement;
     if (!target) return;
@@ -22,11 +20,8 @@ document.addEventListener("mousemove", (e) => {
       target.style.position = "relative";
     }
 
-    Array.from(target.children).forEach((child) => {
-      if (!child.classList.contains("border-glow-layer")) {
-        child.style.pointerEvents = "none";
-      }
-    });
+    // FIX 1: Ensure container allows overflow so the 1px outline layer isn't clipped
+    target.style.overflow = "visible";
 
     const borderGlow = document.createElement("span");
     borderGlow.classList.add("border-glow-layer");
@@ -34,21 +29,21 @@ document.addEventListener("mousemove", (e) => {
 
     Object.assign(borderGlow.style, {
       position: "absolute",
-      top: `-${offsetSize}`,
-      left: `-${offsetSize}`,
-      right: `-${offsetSize}`,
-      bottom: `-${offsetSize}`,
+      top: offsetSize,
+      left: offsetSize,
+      right: offsetSize,
+      bottom: offsetSize,
       padding: "1px",
-      borderRadius: `calc(${borderRadius} + ${offsetSize})`,
-      pointerEvents: "none",
+      borderRadius: borderRadius,
+      pointerEvents: "none", // Ensures clicks pass directly through to inputs
       opacity: "0",
-      zIndex: "10",
+      zIndex: "2",
       transition: "opacity 0.3s ease",
       background:
-        "radial-gradient(280px circle at var(--x, 0px) var(--y, 0px), rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.02) 60%, transparent 100%)",
-      webkitMask:
-        "linear-gradient(#fff, #fff) content-box, linear-gradient(#fff, #fff)",
-      webkitMaskComposite: "xor",
+        "radial-gradient(280px circle at var(--x, 0px) var(--y, 0px), rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.05) 60%, transparent 100%)",
+      WebkitMask:
+        "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+      WebkitMaskComposite: "xor",
       maskComposite: "exclude",
     });
 
@@ -56,8 +51,13 @@ document.addEventListener("mousemove", (e) => {
 
     target.addEventListener("mousemove", (elEvent) => {
       if (elEvent.currentTarget === target) {
-        borderGlow.style.setProperty("--x", `${elEvent.offsetX}px`);
-        borderGlow.style.setProperty("--y", `${elEvent.offsetY}px`);
+        const rect = target.getBoundingClientRect();
+        // Use client coordinates relative to bounding rect for precise placement
+        const x = elEvent.clientX - rect.left;
+        const y = elEvent.clientY - rect.top;
+        
+        borderGlow.style.setProperty("--x", `${x}px`);
+        borderGlow.style.setProperty("--y", `${y}px`);
         borderGlow.style.opacity = "1";
       }
     });
