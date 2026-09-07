@@ -4,6 +4,8 @@ namespace NikosStuff\NsTheme;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Filament\Support\Assets\Js;
+use Filament\Support\Facades\FilamentAsset;
 
 /**
  * Filament 플러그인 계약 (#61). 패널별 등록이 필요한 게 없어 비어 있다 —
@@ -19,5 +21,11 @@ class NsThemePlugin implements Plugin
 
     public function register(Panel $panel): void {}
 
-    public function boot(Panel $panel): void {}
+    public function boot(Panel $panel): void
+        {
+            // Register custom JS asset
+            FilamentAsset::register([
+                Js::make('ns-theme-script', __DIR__ . '/../resources/js/buttons_fx.js'),
+            ], package: 'ns-theme');
+        }
 }
