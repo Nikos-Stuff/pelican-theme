@@ -1,8 +1,12 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
 
-/* ═══ Hide global scrollbars while preserving scroll functionality ═══ */
-html {
-  scrollbar-gutter: stable;
+/* ═══ Hide global scrollbars while preserving scroll functionality + footer stuff ═══ */
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
 }
 
 html, body {
