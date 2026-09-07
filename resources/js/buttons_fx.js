@@ -1,5 +1,5 @@
 document.addEventListener("mousemove", (e) => {
-  const selector = "button, a, [data-glow], .glow-card, input, select, textarea";
+  const selector = "button, a, [data-glow], .glow-card, fi-fo-toggle, input, select, textarea";
   let target = e.target.closest(selector);
   if (!target) return;
 
