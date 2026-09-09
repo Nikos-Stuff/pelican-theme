@@ -755,6 +755,37 @@ body, .fi-body {
 
 /* ═══ 26. Mobile Responsiveness (Hairline Overview) ═══ */
 @media (max-width: 640px) {
+  /* Collapse side-by-side grid columns into a single vertical stack */
+    .fi-fo-repeater-item .fi-fo-field,
+    .fi-fo-repeater-item .fi-in-entry,
+    .fi-fieldset .fi-fo-field,
+    .fi-fieldset .fi-in-entry {
+        grid-template-columns: minmax(0, 1fr) !important;
+        row-gap: 0.5rem;
+    }
+
+      /* Reset grid spanning so content sits directly underneath the label */
+    .fi-fo-repeater-item .fi-fo-field > .fi-fo-field-label-col ~ .fi-fo-field-content-col,
+    .fi-fieldset .fi-fo-field > .fi-fo-field-label-col ~ .fi-fo-field-content-col,
+    .fi-fo-repeater-item .fi-in-entry > .fi-in-entry-label-col ~ .fi-in-entry-content-col,
+    .fi-fieldset .fi-in-entry > .fi-in-entry-label-col ~ .fi-in-entry-content-col,
+    .fi-fo-repeater-item .fi-fo-field-wrp-error-message,
+    .fi-fieldset .fi-fo-field-wrp-error-message {
+        grid-column: 1 / -1 !important;
+    }
+
+      /* Wrap the field label container to let "Connect to SFTP" drop below "Connection" */
+    .fi-fo-field-label-ctn {
+        flex-wrap: wrap;
+        gap: 0.35rem;
+    }
+
+    /* Ensure the action container takes full width on small screens */
+    .fi-fo-field-label-ctn .fi-sc {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
     /* Stack table rows as block cards */
     .hl-table,
     .hl-table tbody,
