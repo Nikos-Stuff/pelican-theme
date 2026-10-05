@@ -271,11 +271,20 @@ body, .fi-body {
 .hl-metric .relative.rounded-full.overflow-hidden { height: 5px !important; border-radius: 3px; }
 .hl-metric .relative.rounded-full.overflow-hidden > div { border-radius: 3px; }
 .hl-metric span[class*="text-sm"] { font-size: 0.6875rem !important; line-height: 1.2; }
-.fi-ta-record-content-ctn { padding: 0; }
+
+.fi-ta-record-content-ctn {
+    padding: 0.85rem 1rem !important;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
 .fi-ta-record .fi-ta-record-content {
     gap: 0.5rem;
-    padding-inline-start: 0 !important;
-    padding-inline-end: 0 !important;
+}
+
+.fi-ta-split {
+    align-items: center;
 }
 
 /* ═══ 14. Display stats widgets in a **table format** ═══ */
