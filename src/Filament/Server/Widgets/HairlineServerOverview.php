@@ -2,17 +2,13 @@
 
 namespace NikosStuff\NsTheme\Filament\Server\Widgets;
 
+use App\Enums\ContainerStatus;
 use App\Models\Server;
+use Carbon\CarbonInterface;
 use Filament\Facades\Filament;
 use Filament\Widgets\Widget;
 
-/**
- * 콘솔 상단 오버뷰를 **표 형태**로 (#61).
- *
- * 코어 ServerOverview 는 스탯 카드 6개를 나열한다 — 속성 표로 바꾼다. 코어 위젯은
- * CSS 로 숨기고 이 위젯이 같은 자리(AboveConsole)에 선다.
- * Pelican v1.0.0+부터 스탯은 cache() 대신 웹소켓(Echo)을 통해 프론트엔드로 직접 스트리밍됩니다.
- */
+
 class HairlineServerOverview extends Widget
 {
     protected string $view = 'hairline::server-overview';
@@ -28,22 +24,75 @@ class HairlineServerOverview extends Widget
         /** @var Server $server */
         $server = Filament::getTenant();
 
-        $useBinary = config('panel.use_binary_prefix', true);
-        $multiplier = $useBinary ? 1024 * 1024 : 1000 * 1000;
-
         return [
-            'server' => [
-                'id' => $server->id,
-                'uuid' => $server->uuid,
-                'name' => $server->name,
-                'address' => $server->allocation?->address ?? '-',
-                'cpuLimit' => $server->cpu,
-                'memoryLimit' => $server->memory * $multiplier,
-                'diskLimit' => $server->disk * $multiplier,
-                'initialStatus' => $server->retrieveStatus()?->value ?? 'offline',
-                'initialStatusLabel' => $server->condition?->getLabel() ?? 'Offline',
-            ],
-            'useBinaryPrefix' => $useBinary,
+            'name' => $server->name,
+            'status' => $this->status($server),
+            'statusColor' => $this->statusColor($server),
+            'address' => $server->allocation?->address ?? '-',
+            'cpu' => $this->cpuUsage($server),
+            'memory' => $this->memoryUsage($server),
+            'disk' => $this->diskUsage($server),
         ];
+    }
+
+    private function status(Server $server): string
+    {
+        $status = $server->condition->getLabel();
+        $uptime = collect(cache()->get("servers.{$server->id}.uptime"))->last() ?? 0;
+
+        if ($uptime === 0) {
+            return $status;
+        }
+
+        return $status . ' · ' . now()->subMillis($uptime)
+            ->diffForHumans(syntax: CarbonInterface::DIFF_ABSOLUTE, short: true, parts: 2);
+    }
+
+    private function statusColor(Server $server): string
+    {
+        return match (true) {
+            $server->retrieveStatus() === ContainerStatus::Running => 'ok',
+            $server->retrieveStatus()->isOffline() => 'off',
+            default => 'busy',
+        };
+    }
+
+    private function cpuUsage(Server $server): string
+    {
+        if ($server->retrieveStatus()->isOffline()) {
+            return '-';
+        }
+
+        $data = collect(cache()->get("servers.{$server->id}.cpu_absolute"))->last(default: 0);
+
+        return format_number($data, maxPrecision: 2) . ' %'
+            . ($server->cpu > 0 ? ' / ' . format_number($server->cpu) . ' %' : '');
+    }
+
+    private function memoryUsage(Server $server): string
+    {
+        if ($server->retrieveStatus()->isOffline()) {
+            return '-';
+        }
+
+        $used = collect(cache()->get("servers.{$server->id}.memory_bytes"))->last(default: 0);
+        $total = $server->memory * (config('panel.use_binary_prefix') ? 1024 * 1024 : 1000 * 1000);
+
+        return convert_bytes_to_readable($used)
+            . ($server->memory > 0 ? ' / ' . convert_bytes_to_readable($total) : '');
+    }
+
+    private function diskUsage(Server $server): string
+    {
+        $disk = collect(cache()->get("servers.{$server->id}.disk_bytes"))->last(default: 0);
+
+        if ($disk === 0) {
+            return '-';
+        }
+
+        $total = $server->disk * (config('panel.use_binary_prefix') ? 1024 * 1024 : 1000 * 1000);
+
+        return convert_bytes_to_readable($disk)
+            . ($server->disk > 0 ? ' / ' . convert_bytes_to_readable($total) : '');
     }
 }
