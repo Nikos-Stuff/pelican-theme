@@ -34,3 +34,25 @@
     </table>
 </div>
 </x-filament-widgets::widget>
+
+@script
+<script>
+    const DOT_MAP = {
+        running: 'ok',
+        starting: 'busy',
+        stopping: 'busy',
+        offline: 'off',
+    };
+
+    const setDot = (state) => {
+        const cell = document.querySelector('.hl-overview .hl-dot');
+        if (!cell) return;
+
+        cell.className = `hl-dot hl-${DOT_MAP[state] ?? 'busy'}`;
+    };
+
+    Livewire.on('console-status', ({ state }) => {
+        if (state) setDot(state);
+    });
+</script>
+@endscript
