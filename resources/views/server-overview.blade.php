@@ -1,12 +1,7 @@
-{{-- 속성 표 (#61). 카드 6개 대신 표 하나 — 코어 ServerOverview 는 CSS 로 숨긴다.
-
-     🔴 반드시 <x-filament-widgets::widget> 로 감싼다. 이 컴포넌트가 getColumnSpan() 을
-        grid-column 으로 옮긴다(widget.blade: $attributes->gridColumn(...)). 안 감싸면
-        columnSpan='full' 이 **적용될 자리가 없어** 그리드에서 1열만 차지한다. --}}
 <x-filament-widgets::widget>
 <div 
     x-data="hairlineServerOverview({
-        server: {{ js([
+        server: @js([
             'id' => $this->getWidgetServer()->id,
             'uuid' => $this->getWidgetServer()->uuid,
             'name' => $name,
@@ -16,8 +11,8 @@
             'diskLimit' => $this->getWidgetServer()->disk,
             'initialStatus' => $this->getWidgetServer()->retrieveStatus()?->value ?? 'offline',
             'initialStatusLabel' => $this->getWidgetServer()->condition?->getLabel() ?? 'Offline',
-        ]) }},
-        useBinaryPrefix: {{ js(config('panel.use_binary_prefix', true)) }}
+        ]),
+        useBinaryPrefix: @js(config('panel.use_binary_prefix', true))
     })"
     x-init="init()"
     class="hl-overview"
