@@ -11,7 +11,7 @@
       const originalText = el.textContent.trim();
 
       if (originalText.length > MAX_CHARS) {
-        el.title = originalText; // Tooltip on hover
+        el.title = originalText;
         el.textContent = originalText.slice(0, MAX_CHARS).trim() + "…";
       }
 
@@ -25,7 +25,6 @@
     processElements();
   }
 
-  // Handles dynamic Livewire/Alpine DOM updates
   const observer = new MutationObserver(() => processElements());
   observer.observe(document.body, { childList: true, subtree: true });
 })();
