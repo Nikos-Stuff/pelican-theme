@@ -1,5 +1,5 @@
 (function truncateDescriptions() {
-  const MAX_CHARS = 100;
+  const MAX_CHARS = 20;
   const selector = ".fi-ta-text-description, .hl-card-desc";
 
   function processElements() {
