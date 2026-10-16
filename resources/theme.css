@@ -416,6 +416,25 @@ body,
   padding: 0.6rem;
 } /* 가로·세로 동일 */
 
+/* Power button on server cards */
+.hl-card-actions-slot .fi-icon-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 6px; /* or 50% for a circle */
+  background: #f4f7fb;
+  border: 1px solid #dfe2e7;
+}
+
+:where(.dark) .hl-card-actions-slot .fi-icon-btn {
+  background: #23272d;
+  border-color: #3a3f47;
+}
+
+.hl-card-actions-slot .fi-icon-btn .fi-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
 /* Stretch — server cards only */
 .fi-ta-content.fi-ta-content-grid {
   align-items: stretch;
