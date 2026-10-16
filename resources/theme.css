@@ -478,23 +478,21 @@ body,
 .hl-card-metrics {
   gap: 0.75rem !important;
 }
-/* Full-bleed blurred egg/icon background */
-.hl-card-bg {
-  position: absolute;
-  inset: 0;
+/* Side egg/icon thumbnail */
+.hl-card-thumb {
+  flex: 0 0 3.25rem;
+  width: 3.25rem;
+  align-self: stretch;
+  min-height: 3.25rem;
+  border-radius: 6px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  filter: blur(8px);
-  opacity: 0.18;
-  transform: scale(1.08);
-  pointer-events: none;
-  z-index: 0;
+  background-color: #eef0f3;
 }
-:where(.dark) .hl-card-bg {
-  opacity: 0.14;
+:where(.dark) .hl-card-thumb {
+  background-color: #2c2f36;
 }
-
 /* Status icon next to the title */
 .hl-card-status-icon {
   width: 1.15rem;
