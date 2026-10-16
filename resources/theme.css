@@ -454,7 +454,7 @@ body,
   gap: 0.5rem !important;
 }
 .hl-card-head-solo {
-  margin-bottom: 0.7rem;
+  margin-bottom: 0; /* was 0.7rem */
 }
 .hl-card-title {
   font-size: 0.9375rem;
@@ -494,7 +494,7 @@ body,
 }
 /* Card head */
 .hl-card-head {
-  margin-bottom: 0.6rem;
+  margin-bottom: 0;
   gap: 0.5rem !important;
   min-height: 1.75rem;
   align-items: center;
