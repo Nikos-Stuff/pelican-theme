@@ -39,7 +39,7 @@
                     </h2>
                     @if ($actiongroup->isVisible())
                         <div class="end-0 ms-auto hl-card-actions-slot">
-                            <div class="flex-1 dark:bg-gray-800 dark:text-white p-1"
+                            <div class="flex-1 p-1"
                                  x-on:click.stop>
                                 {{ $actiongroup }}
                             </div>
