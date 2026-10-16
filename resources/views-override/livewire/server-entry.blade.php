@@ -1,15 +1,13 @@
 {{-- Hairline 테마의 서버 카드 오버라이드 (#61).
      원본: resources/views/livewire/server-entry.blade.php (Pelican 코어)
      ⚠ 코어 뷰를 통째로 대체한다 — 패널 업그레이드 때 원본과 대조할 것.
-     바꾼 것: ① 좌측 상태 세로바 제거 → 글자 태그(배지)로 ② 중첩 패딩·마진·갭 축소 --}}
+     바꾼 것: ① 상태 아이콘 ② 배경 아이콘 full-bleed + blur + center ③ 중첩 패딩 축소 --}}
 @php
     $actiongroup = \App\Filament\App\Resources\Servers\Pages\ListServers::getPowerActionGroup()->record($server);
     $backgroundImage = $server->icon ?? $server->egg->icon;
-
     $serverEntryColumn = $column ?? \App\Filament\Components\Tables\Columns\ServerEntryColumn::make('server_entry');
     $serverNodeStatistics = $server->node->statistics();
     $serverNodeSystemInfo = $server->node->systemInformation();
-
     $warningPercent = $serverEntryColumn->getWarningThresholdPercent() ?? 0.7;
     $dangerPercent = $serverEntryColumn->getDangerThresholdPercent() ?? 0.9;
 @endphp
@@ -17,36 +15,36 @@
      class="relative cursor-pointer"
      x-on:click="{{ $component->redirectUrl() }}"
      x-on:auxclick.prevent="if ($event.button === 1) {{ $component->redirectUrl(true) }}">
-
-    <div class="flex-1 dark:bg-gray-800 dark:text-white rounded-lg overflow-hidden hl-card-pad">
+    <div class="relative flex-1 dark:bg-gray-800 dark:text-white rounded-lg overflow-hidden hl-card-pad">
         @if($backgroundImage)
-            <div style="
-                position: absolute;
-                inset: 0;
-                background: url('{{ $backgroundImage }}') right no-repeat;
-                background-size: contain;
-                opacity: 0.20;
-                max-width: 680px;
-                max-height: 140px;
-            "></div>
+            {{-- Full-card background: centered, cover, blurred --}}
+            <div
+                class="hl-card-bg"
+                style="background-image: url('{{ $backgroundImage }}');"
+                aria-hidden="true"
+            ></div>
         @endif
 
         <div @class([
-            'flex items-center gap-2 hl-card-head',
+            'relative z-[1] flex items-center gap-2 hl-card-head',
             'hl-card-head-solo' => !$server->description,
         ])>
-            {{-- 상태를 아이콘 색이 아니라 **글자 태그**로 (요청) --}}
-            <x-filament::badge :color="$server->condition->getColor()" size="sm">
-                {{ $server->condition->getLabel() }}
-            </x-filament::badge>
+            {{-- Status as icon (color follows condition) --}}
+            <x-filament::icon
+                :icon="$server->condition->getIcon()"
+                :color="$server->condition->getColor()"
+                class="hl-card-status-icon"
+            />
+
             <h2 class="hl-card-title">
                 {{ $server->name }}
                 <span class="hl-card-uptime">
                     {{ $server->formatResource(\App\Enums\ServerResourceType::Uptime) }}
                 </span>
             </h2>
+
             @if ($actiongroup->isVisible())
-                <div class="end-0">
+                <div class="end-0 ms-auto">
                     <div class="flex-1 dark:bg-gray-800 dark:text-white rounded-b-lg overflow-hidden p-1"
                          x-on:click.stop>
                         {{ $actiongroup }}
@@ -56,12 +54,12 @@
         </div>
 
         @if ($server->description)
-            <div class="text-left hl-card-desc">
+            <div class="relative z-[1] text-left hl-card-desc">
                 <p class="text-base dark:text-gray-400">{{ Str::limit($server->description, 40, preserveWords: true) }}</p>
             </div>
         @endif
 
-        <div class="flex justify-between text-center items-center hl-card-metrics">
+        <div class="relative z-[1] flex justify-between text-center items-center hl-card-metrics">
             <div class="w-full hl-metric">
                 @php
                     $cpuCurrent = \App\Enums\ServerResourceType::CPU->getResourceAmount($server);

@@ -478,6 +478,30 @@ body,
 .hl-card-metrics {
   gap: 0.75rem !important;
 }
+/* Full-bleed blurred egg/icon background */
+.hl-card-bg {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(8px);
+  opacity: 0.18;
+  transform: scale(1.08);
+  pointer-events: none;
+  z-index: 0;
+}
+:where(.dark) .hl-card-bg {
+  opacity: 0.14;
+}
+
+/* Status icon next to the title */
+.hl-card-status-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+}
+
 .hl-metric {
   max-width: none;
 }

@@ -4,45 +4,41 @@
     $backgroundImage = $server->icon ?? $server->egg->icon;
     $serverEntryColumn = $column ?? \App\Filament\Components\Tables\Columns\ServerEntryColumn::make('server_entry');
 @endphp
-
 <div class="relative cursor-pointer"
      x-on:click="{{ $component->redirectUrl() }}"
      x-on:auxclick.prevent="if ($event.button === 1) {{ $component->redirectUrl(true) }}">
-    <div class="flex-1 dark:bg-gray-800 dark:text-white rounded-lg overflow-hidden hl-card-pad">
+    <div class="relative flex-1 dark:bg-gray-800 dark:text-white rounded-lg overflow-hidden hl-card-pad">
         @if($backgroundImage)
-            <div style="
-                position: absolute;
-                inset: 0;
-                background: url('{{ $backgroundImage }}') right no-repeat;
-                background-size: contain;
-                opacity: 0.20;
-                max-width: 680px;
-                max-height: 140px;
-            "></div>
+            <div
+                class="hl-card-bg"
+                style="background-image: url('{{ $backgroundImage }}');"
+                aria-hidden="true"
+            ></div>
         @endif
 
         <div @class([
-            'flex items-center gap-2 hl-card-head',
+            'relative z-[1] flex items-center gap-2 hl-card-head',
             'hl-card-head-solo' => !$server->description,
-            ])>
-
-            <x-filament::badge color="gray" size="sm">
-                {{ trans('server/dashboard.loading') }}
-            </x-filament::badge>
+        ])>
+            {{-- Loading: neutral spinner-style icon (or gray condition icon) --}}
+            <x-filament::icon
+                icon="tabler-loader-2"
+                color="gray"
+                class="hl-card-status-icon animate-spin"
+            />
             <h2 class="hl-card-title">
                 {{ $server->name }}
             </h2>
         </div>
 
         @if ($server->description)
-            <div class="text-left hl-card-desc">
+            <div class="relative z-[1] text-left hl-card-desc">
                 <p class="text-base dark:text-gray-400">{{ Str::limit($server->description, 40, preserveWords: true) }}</p>
             </div>
         @endif
 
-
-        <div class="flex justify-between text-center items-center hl-card-metrics">
-            <div>
+        <div class="relative z-[1] flex justify-between text-center items-center hl-card-metrics">
+            <div class="w-full hl-metric">
                 @php
                     $cpuCurrent = 0;
                     $cpuMax = \App\Enums\ServerResourceType::CPULimit->getResourceAmount($server) ?: 100;
@@ -50,7 +46,6 @@
                     $getMaxValue = fn() => $cpuMax;
                     $getProgressLabel = fn () => $server->formatResource(App\Enums\ServerResourceType::CPU, 0) . ' / ' . $server->formatResource(App\Enums\ServerResourceType::CPULimit, 0);
                 @endphp
-
                 @include('livewire.columns.progress-bar-column', [
                     'getState' => $getState,
                     'getMaxValue' => $getMaxValue,
@@ -60,8 +55,7 @@
                     'getProgressColor' => fn () => $serverEntryColumn->getProgressColorForStatus('success'),
                 ])
             </div>
-
-            <div>
+            <div class="w-full hl-metric">
                 @php
                     $memCurrent = 0;
                     $memMax = \App\Enums\ServerResourceType::MemoryLimit->getResourceAmount($server);
@@ -69,7 +63,6 @@
                     $getMaxValue = fn() => $memMax > 0 ? $memMax : null;
                     $getProgressLabel = fn() => convert_bytes_to_readable($memCurrent) . ' / ' . ($memMax > 0 ? convert_bytes_to_readable($memMax) : "\u{221E}");
                 @endphp
-
                 @include('livewire.columns.progress-bar-column', [
                     'getState' => $getState,
                     'getMaxValue' => $getMaxValue,
@@ -79,8 +72,7 @@
                     'getProgressColor' => fn () => $serverEntryColumn->getProgressColorForStatus('success'),
                 ])
             </div>
-
-            <div>
+            <div class="w-full hl-metric">
                 @php
                     $diskCurrent = 0;
                     $diskMax = \App\Enums\ServerResourceType::DiskLimit->getResourceAmount($server);
@@ -88,7 +80,6 @@
                     $getMaxValue = fn() => $diskMax > 0 ? $diskMax : null;
                     $getProgressLabel = fn() => convert_bytes_to_readable($diskCurrent) . ' / ' . ($diskMax > 0 ? convert_bytes_to_readable($diskMax) : "\u{221E}");
                 @endphp
-
                 @include('livewire.columns.progress-bar-column', [
                     'getState' => $getState,
                     'getMaxValue' => $getMaxValue,
@@ -98,7 +89,6 @@
                     'getProgressColor' => fn () => $serverEntryColumn->getProgressColorForStatus('success'),
                 ])
             </div>
-
             <div class="hidden sm:block">
                 <p class="text-sm dark:text-gray-400">{{ trans('server/dashboard.network') }}</p>
                 <p class="text-md font-semibold">{{ $server->allocation?->address ?? trans('server/dashboard.none') }}</p>
@@ -106,4 +96,3 @@
         </div>
     </div>
 </div>
-
