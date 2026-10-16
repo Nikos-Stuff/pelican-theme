@@ -416,18 +416,24 @@ body,
   padding: 0.6rem;
 } /* 가로·세로 동일 */
 
-/* Stretch every layer so metrics can pin to the bottom */
+/* Stretch — server cards only */
 .fi-ta-content.fi-ta-content-grid {
   align-items: stretch;
 }
 
-.fi-ta-content.fi-ta-content-grid .fi-ta-record,
-.fi-ta-content.fi-ta-content-grid .fi-ta-record-content-ctn,
-.fi-ta-content.fi-ta-content-grid .fi-ta-record-content,
-.fi-ta-content.fi-ta-content-grid .fi-grid-col,
-.fi-ta-content.fi-ta-content-grid .fi-ta-stack,
-.fi-ta-content.fi-ta-content-grid .w-full,
-.fi-ta-content.fi-ta-content-grid [wire\:name="server-entry"],
+.fi-ta-content.fi-ta-content-grid .fi-ta-record:has(.hl-card-pad),
+.fi-ta-content.fi-ta-content-grid
+  .fi-ta-record:has(.hl-card-pad)
+  .fi-ta-record-content-ctn,
+.fi-ta-content.fi-ta-content-grid
+  .fi-ta-record:has(.hl-card-pad)
+  .fi-ta-record-content,
+.fi-ta-content.fi-ta-content-grid .fi-ta-record:has(.hl-card-pad) .fi-grid-col,
+.fi-ta-content.fi-ta-content-grid .fi-ta-record:has(.hl-card-pad) .fi-ta-stack,
+.fi-ta-content.fi-ta-content-grid .fi-ta-record:has(.hl-card-pad) .w-full,
+.fi-ta-content.fi-ta-content-grid
+  .fi-ta-record:has(.hl-card-pad)
+  [wire\:name="server-entry"],
 .hl-card-pad {
   height: 100%;
 }
@@ -447,6 +453,17 @@ body,
 .hl-card-metrics {
   margin-top: auto;
   gap: 0.75rem !important;
+}
+
+/* Zero outer pad only on server cards */
+.fi-ta-content.fi-ta-content-grid
+  .fi-ta-record:has(.hl-card-pad)
+  .fi-ta-record-content-ctn {
+  padding: 0 !important;
+  gap: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* ---- */
@@ -574,13 +591,13 @@ body,
   flex-direction: column;
   gap: 0.75rem;
 }*/
-.fi-ta-content-ctn .fi-ta-content.fi-ta-content-grid .fi-ta-record-content-ctn {
+/*.fi-ta-content-ctn .fi-ta-content.fi-ta-content-grid .fi-ta-record-content-ctn {
   padding: 0 !important;
   gap: 0;
   display: flex;
   flex-direction: column;
   height: 100%;
-}
+}*/
 
 .fi-ta-record .fi-ta-record-content {
   gap: 0.5rem;
