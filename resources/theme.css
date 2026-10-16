@@ -416,6 +416,30 @@ body,
   padding: 0.6rem;
 } /* 가로·세로 동일 */
 
+/* Stretch card to grid cell height */
+.fi-ta-content.fi-ta-content-grid .fi-ta-record,
+.fi-ta-content.fi-ta-content-grid .fi-ta-record > *,
+.hl-card-pad {
+  height: 100%;
+}
+
+.hl-card-pad > .flex {
+  height: 100%;
+  align-items: stretch;
+}
+
+/* Content column fills height; metrics sit at the bottom */
+.hl-card-pad .min-w-0.flex-1 {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.hl-card-metrics {
+  margin-top: auto;
+  gap: 0.75rem !important;
+}
+
 .fi-ta-content-ctn .fi-ta-content.fi-ta-content-grid {
   padding: 0.75rem !important;
   gap: 0.5rem;
@@ -454,7 +478,7 @@ body,
   gap: 0.5rem !important;
 }
 .hl-card-head-solo {
-  margin-bottom: 0; /* was 0.7rem */
+  margin-bottom: 0.7rem;
 }
 .hl-card-title {
   font-size: 0.9375rem;
@@ -475,9 +499,9 @@ body,
 .hl-card-desc p {
   font-size: 0.75rem;
 }
-.hl-card-metrics {
+/*.hl-card-metrics {
   gap: 0.75rem !important;
-}
+}*/
 /* Side egg/icon thumbnail */
 .hl-card-thumb {
   flex: 0 0 3.25rem;
@@ -494,7 +518,7 @@ body,
 }
 /* Card head */
 .hl-card-head {
-  margin-bottom: 0;
+  margin-bottom: 0.6rem;
   gap: 0.5rem !important;
   min-height: 1.75rem;
   align-items: center;
@@ -553,6 +577,7 @@ body,
   gap: 0;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .fi-ta-record .fi-ta-record-content {
