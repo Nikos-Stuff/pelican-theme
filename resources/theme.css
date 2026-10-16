@@ -416,9 +416,18 @@ body,
   padding: 0.6rem;
 } /* 가로·세로 동일 */
 
-/* Stretch card to grid cell height */
+/* Stretch every layer so metrics can pin to the bottom */
+.fi-ta-content.fi-ta-content-grid {
+  align-items: stretch;
+}
+
 .fi-ta-content.fi-ta-content-grid .fi-ta-record,
-.fi-ta-content.fi-ta-content-grid .fi-ta-record > *,
+.fi-ta-content.fi-ta-content-grid .fi-ta-record-content-ctn,
+.fi-ta-content.fi-ta-content-grid .fi-ta-record-content,
+.fi-ta-content.fi-ta-content-grid .fi-grid-col,
+.fi-ta-content.fi-ta-content-grid .fi-ta-stack,
+.fi-ta-content.fi-ta-content-grid .w-full,
+.fi-ta-content.fi-ta-content-grid [wire\:name="server-entry"],
 .hl-card-pad {
   height: 100%;
 }
@@ -428,11 +437,11 @@ body,
   align-items: stretch;
 }
 
-/* Content column fills height; metrics sit at the bottom */
 .hl-card-pad .min-w-0.flex-1 {
   display: flex;
   flex-direction: column;
   min-height: 100%;
+  height: 100%;
 }
 
 .hl-card-metrics {
@@ -440,14 +449,7 @@ body,
   gap: 0.75rem !important;
 }
 
-.fi-ta-content-ctn .fi-ta-content.fi-ta-content-grid {
-  padding: 0.75rem !important;
-  gap: 0.5rem;
-}
-.fi-ta-content-ctn .fi-ta-content-header {
-  padding-inline: 0.75rem !important;
-}
-
+/* ---- */
 .fi-ta-record {
   border-radius: 6px !important;
   box-shadow: none !important;
