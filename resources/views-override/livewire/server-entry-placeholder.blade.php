@@ -26,6 +26,7 @@
                     <h2 class="hl-card-title">
                         {{ $server->name }}
                     </h2>
+                    <div class="end-0 ms-auto hl-card-actions-slot" aria-hidden="true"></div>
                 </div>
 
                 @if ($server->description)
