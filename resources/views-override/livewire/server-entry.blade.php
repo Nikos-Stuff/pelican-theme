@@ -15,7 +15,7 @@
      class="relative cursor-pointer"
      x-on:click="{{ $component->redirectUrl() }}"
      x-on:auxclick.prevent="if ($event.button === 1) {{ $component->redirectUrl(true) }}">
-    <div class="relative flex-1 dark:bg-gray-800 dark:text-white rounded-lg overflow-hidden hl-card-pad">
+    <div class="relative flex-1 dark:bg-gray-800 dark:text-white rounded-lg hl-card-pad">
         <div class="flex gap-3 items-stretch">
             @if($backgroundImage)
                 <div class="hl-card-thumb" style="background-image: url('{{ $backgroundImage }}');" aria-hidden="true"></div>
