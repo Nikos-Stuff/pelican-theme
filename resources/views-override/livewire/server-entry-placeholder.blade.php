@@ -25,6 +25,9 @@
                     />
                     <h2 class="hl-card-title">
                         {{ $server->name }}
+                        <span class="hl-card-uptime" aria-hidden="true">
+                            {{ $server->formatResource(\App\Enums\ServerResourceType::Uptime) }}
+                        </span>
                     </h2>
                     <div class="end-0 ms-auto hl-card-actions-slot" aria-hidden="true"></div>
                 </div>
