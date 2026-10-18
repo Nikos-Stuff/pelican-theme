@@ -47,7 +47,8 @@ body,
   font-size: 13px;
   letter-spacing: -0.008em;
 }
-.fi-body :where(*):not(code):not(pre):not(kbd):not(samp):not(.hl-mono) {
+.fi-body
+  :where(*):not(code):not(pre):not(kbd):not(samp):not(.hl-mono):not(.codicon) {
   font-family: inherit;
 }
 .fi-page-header-heading {
