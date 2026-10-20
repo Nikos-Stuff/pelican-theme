@@ -348,7 +348,7 @@ body,
   display: flex;
   align-items: center;
   gap: 0;
-  border: 1px solid #dfe2e7;
+  border: 1px solid rgba(27, 30, 36, 0.12); /* same as .fi-btn / input hairline */
   border-radius: 4px;
   overflow: hidden;
   background: #ffffff;
@@ -405,13 +405,9 @@ body,
   color: inherit !important;
 }
 
-/*.fi-pagination-item-btn .border-glow-layer {
-  pointer-events: none;
-}*/
-
 :where(.dark) .fi-pagination-items {
-  border-color: #2c2f36;
-  background: #1e2126;
+  border-color: rgba(255, 255, 255, 0.16); /* same as dark .fi-btn */
+  background: transparent;
 }
 
 :where(.dark) .fi-pagination-item-btn {
