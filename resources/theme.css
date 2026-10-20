@@ -343,6 +343,58 @@ body,
   font-weight: 600;
 }
 
+/* ═══ Pagination — match tabs / hairline controls ═══ */
+.fi-pagination-items {
+  gap: 0.25rem;
+}
+
+.fi-pagination-item-btn {
+  border-radius: 6px;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.55rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #6b7280;
+  border: 1px solid transparent;
+  background: transparent;
+  box-shadow: none;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+}
+
+.fi-pagination-item-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #1b1e24;
+}
+
+.fi-pagination-item.fi-active .fi-pagination-item-btn {
+  color: #005ce6;
+  background: rgba(0, 111, 255, 0.08);
+  border-color: transparent;
+}
+
+.fi-pagination-item-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+:where(.dark) .fi-pagination-item-btn {
+  color: #9ba1aa;
+}
+
+:where(.dark) .fi-pagination-item-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #eef0f2;
+}
+
+:where(.dark) .fi-pagination-item.fi-active .fi-pagination-item-btn {
+  color: #66a5ff;
+  background: rgba(0, 111, 255, 0.16);
+}
+
 /* ═══ 9. Modal: 40% overlay + slight blur (guide) ═══ */
 .fi-modal-close-overlay {
   background: rgba(0, 0, 0, 0.4);
