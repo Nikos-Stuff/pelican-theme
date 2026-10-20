@@ -67,7 +67,7 @@ class HairlineProvider extends ServiceProvider
 
     FilamentView::registerRenderHook(
       PanelsRenderHook::SCRIPTS_AFTER,
-      fn(): string => $this->buttonsFxScript() . $this->descriptionTruncation(),
+      fn(): string => $this->buttonsFxScript() . $this->descriptionTruncation() . $this->chartForwarder(),
     );
   }
 
@@ -141,4 +141,13 @@ class HairlineProvider extends ServiceProvider
     );
     return $js === false ? "" : "<script data-hairline>" . $js . "</script>";
   }
+
+  private function chartForwarder(): string
+  {
+    $js = @file_get_contents(
+      dirname(__DIR__, 2) . "/resources/js/chart-forwarder.js",
+    );
+    return $js === false ? "" : "<script data-hairline>" . $js . "</script>";
+  }
+  
 }

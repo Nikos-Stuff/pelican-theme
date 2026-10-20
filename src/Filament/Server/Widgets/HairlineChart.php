@@ -3,46 +3,52 @@
 namespace NikosStuff\NsTheme\Filament\Server\Widgets;
 
 use Filament\Support\RawJs;
+use Livewire\Attributes\On;
 
 /**
- * 코어 차트 위젯에 테마 스타일을 입히는 공통 부분 (#61).
+ * Shared styling for the console charts.
  *
- * ⚠ Chart.js 는 Filament 의 Alpine 컴포넌트 안에 번들돼 있어 **전역(window.Chart)이 없다**
- *   — CSS 로도, 전역 defaults 로도 손댈 수 없다(실측). 색과 옵션은 위젯의 PHP
- *   getData()/getOptions() 가 유일한 통로라, 코어 위젯을 상속해 그 둘만 덮는다.
- *   데이터 수집(캐시 키·폴링)은 부모 것을 그대로 쓴다.
+ * Chart.js lives inside Filament’s Alpine component, so there is no window.Chart
+ * and CSS cannot touch the lines. Colors and options must go through getData()
+ * and getOptions().
+ *
+ * After PR #2558 the core charts no longer read the cache. Live data arrives
+ * as an `updateChartData` Livewire event that is only dispatched to the
+ * original ServerCpuChart / ServerMemoryChart / ServerNetworkChart components.
+ * This trait listens for the same event so a subclass can receive it once we
+ * forward the event (see the JS snippet).
  */
 trait HairlineChart
 {
-    /** 라인 색. 자식이 정한다. */
-    abstract protected function chartColor(): string;
+  /** Line color. Defined by the child class. */
+  abstract protected function chartColor(): string;
 
-    /** @return array<string, mixed> */
-    protected function getData(): array
-    {
-        $data = parent::getData();
-        $color = $this->chartColor();
+  /** @return array<string, mixed> */
+  protected function getData(): array
+  {
+    $data = parent::getData();
 
-        foreach ($data['datasets'] ?? [] as $i => $dataset) {
-            $data['datasets'][$i] = array_merge($dataset, [
-                'borderColor' => $color,
-                // 라인 아래 반투명 채우기 — 가이드의 "Alpha Gradient" 근사.
-                'backgroundColor' => str_replace('rgb(', 'rgba(', rtrim($color, ')')) . ', 0.12)',
-                'borderWidth' => 1.5,
-                'tension' => 0.35,
-                'fill' => true,
-                'pointRadius' => 0,
-                'pointHoverRadius' => 3,
-            ]);
-        }
+    $color = $this->chartColor();
 
-        return $data;
+    foreach ($data['datasets'] ?? [] as $i => $dataset) {
+      $data['datasets'][$i] = array_merge($dataset, [
+        'borderColor' => $color,
+        // Soft fill under the line.
+        'backgroundColor' => str_replace('rgb(', 'rgba(', rtrim($color, ')')) . ', 0.12)',
+        'borderWidth' => 1.5,
+        'tension' => 0.35,
+        'fill' => true,
+        'pointRadius' => 0,
+        'pointHoverRadius' => 3,
+      ]);
     }
 
-    protected function getOptions(): RawJs
-    {
-        // 가이드: 최소한의 연한 점선 그리드, X축은 숨김, 범례 없음.
-        return RawJs::make(<<<'JS'
+    return $data;
+  }
+
+  protected function getOptions(): RawJs
+  {
+    return RawJs::make(<<<'JS'
         {
             responsive: true,
             maintainAspectRatio: false,
@@ -69,5 +75,21 @@ trait HairlineChart
             },
         }
         JS);
+  }
+
+  /**
+   * Receives the same payload the core charts get.
+   * Filament’s ChartWidget already knows how to apply `updateChartData`;
+   * we just need the event to reach this component.
+   */
+  #[On('updateChartData')]
+  public function updateChartData(array $data): void
+  {
+    // ChartWidget stores the data and re-renders the Alpine chart.
+    // Calling the parent implementation (if it exists) or letting the
+    // framework handle the event is enough.
+    if (method_exists(parent::class, 'updateChartData')) {
+      parent::updateChartData($data);
     }
+  }
 }

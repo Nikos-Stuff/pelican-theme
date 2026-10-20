@@ -10,6 +10,12 @@ footer:has(a[href*="pelican.dev/docs/#core-team"]) {
   display: none !important;
 }
 
+.fi-wi-widget:has([wire\:name="App\\Filament\\Server\\Widgets\\ServerCpuChart"]),
+.fi-wi-widget:has([wire\:name="App\\Filament\\Server\\Widgets\\ServerMemoryChart"]),
+.fi-wi-widget:has([wire\:name="App\\Filament\\Server\\Widgets\\ServerNetworkChart"]) {
+  display: none !important;
+}
+
 /* Our custom footer styles */
 .hl-footer a {
   transition: color 150ms ease;
