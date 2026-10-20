@@ -343,15 +343,17 @@ body,
   font-weight: 600;
 }
 
-/* ═══ Pagination ═══ */
+/* ═══ Pagination — same shell as .fi-input-wrp ═══ */
 .fi-pagination-items {
   display: flex;
   align-items: center;
   gap: 0;
-  border: 1px solid rgba(27, 30, 36, 0.12); /* same as .fi-btn / input hairline */
   border-radius: 4px;
   overflow: hidden;
+  /* light: same soft ring as Filament inputs */
+  border: 1px solid rgb(0 0 0 / 0.1);
   background: #ffffff;
+  box-shadow: none;
 }
 
 .fi-pagination-item {
@@ -377,6 +379,7 @@ body,
   line-height: 1 !important;
   box-shadow: none !important;
   border: 0 !important;
+  outline: none !important;
   background: transparent !important;
   color: #6b7280 !important;
 }
@@ -406,8 +409,9 @@ body,
 }
 
 :where(.dark) .fi-pagination-items {
-  border-color: rgba(255, 255, 255, 0.16); /* same as dark .fi-btn */
-  background: transparent;
+  /* dark: same as Filament input-wrp (white/10 ring + white/5 fill) */
+  border-color: rgb(255 255 255 / 0.1);
+  background: rgb(255 255 255 / 0.05);
 }
 
 :where(.dark) .fi-pagination-item-btn {
