@@ -36,19 +36,29 @@
     </table>
   </div>
 
-  {{-- Hosting order: status, plan, expiry (separate table, same hairline style) --}}
+  {{-- Hosting order: status, plan, renewal, expiry --}}
   <div class="hl-overview" style="margin-top: 1rem;">
     <table class="hl-table">
       <tbody>
         <tr>
           <th>Order</th>
-          <td>{{ $orderStatus }}</td>
+          <td>
+            <span class="hl-dot hl-{{ $orderStatusColor }}"></span>{{ $orderStatus }}
+          </td>
           <th>Plan</th>
           <td>{{ $orderSubplan }}</td>
         </tr>
         <tr>
+          <th>Renewal</th>
+          <td>
+            @if ($orderExpiryAt)
+            <span class="hl-renewal" data-expiry="{{ $orderExpiryAt }}">—</span>
+            @else
+            —
+            @endif
+          </td>
           <th>Expires</th>
-          <td colspan="3">
+          <td>
             @if ($orderExpiryAt)
             <span class="hl-expiry" data-expiry="{{ $orderExpiryAt }}">—</span>
             @else
@@ -69,6 +79,8 @@
     stopping: 'busy',
     offline: 'off',
   };
+
+  const GRACE_DAYS = 4;
 
   const setDot = (state) => {
     const cell = document.querySelector('.hl-overview .hl-dot');
@@ -111,11 +123,17 @@
     });
 
   const tickExpiry = () => {
-    document.querySelectorAll('.hl-expiry[data-expiry]').forEach((el) => {
+    document.querySelectorAll('.hl-expiry[data-expiry], .hl-renewal[data-expiry]').forEach((el) => {
       const end = Date.parse(el.dataset.expiry);
       if (Number.isNaN(end)) return;
 
-      el.textContent = `${formatAbsoluteLocal(end)} (${formatRemaining(end - Date.now())})`;
+      const isRenewal = el.classList.contains('hl-renewal');
+      const target = isRenewal ? end - GRACE_DAYS * 86400000 : end;
+
+      const absolute = formatAbsoluteLocal(target);
+      const remaining = formatRemaining(target - Date.now());
+
+      el.textContent = `${absolute} (${remaining})`;
     });
   };
 

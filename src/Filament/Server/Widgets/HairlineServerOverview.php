@@ -30,22 +30,24 @@ class HairlineServerOverview extends Widget
 
     // Order row from the external hosting_orders DB (registered in HairlineProvider).
     $order = $this->orderFor($server);
+    $orderStatus = $this->formatLabel($order?->status);
 
     return [
       'name' => $server->name,
       'status' => $this->statusHtml($server),
-      'statusColor' => $this->statusColor($server),
+      'statusColor' => $this->statusColor($server),          // server runtime dot
       'address' => $server->allocation?->address ?? '-',
       'cpu' => $this->cpuUsageHtml($server),
       'memory' => $this->memoryUsageHtml($server),
       'disk' => $this->diskUsageHtml($server),
 
-      // Hosting order fields (separate table under the metrics overview).
-      'orderStatus' => $this->formatLabel($order?->status),
+      // Hosting order
+      'orderStatusColor' => $this->orderStatusColor($orderStatus),
+      'orderStatus' => $orderStatus,
       'orderSubplan' => $this->formatLabel($order?->subplan),
       'orderExpiry' => $this->formatExpiry($order?->expiry_date),
       'orderExpiryAt' => $order?->expiry_date
-        ? \Carbon\Carbon::parse($order->expiry_date)
+        ? Carbon::parse($order->expiry_date)
         ->timezone(config('app.timezone'))
         ->toIso8601String()
         : null,
@@ -109,6 +111,18 @@ class HairlineServerOverview extends Widget
       $server->retrieveStatus() === ContainerStatus::Running => 'ok',
       $server->retrieveStatus()->isOffline() => 'off',
       default => 'busy',
+    };
+  }
+
+  private function orderStatusColor(string $status): string
+  {
+    return match (strtolower(trim($status))) {
+      'active'    => 'ok',      // green
+      'pending'   => 'busy',    // yellow
+      'notified'  => 'busy',    // yellow
+      'ending'    => 'busy',    // yellow
+      'deleting'  => 'off',     // grey
+      default     => 'off',     // grey
     };
   }
 
