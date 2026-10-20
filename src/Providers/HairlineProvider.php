@@ -60,14 +60,11 @@ class HairlineProvider extends ServiceProvider
     View::prependLocation(dirname(__DIR__, 2) . "/resources/views-override");
     Console::registerCustomWidgets(ConsoleWidgetPosition::Top, [
       HairlineServerOverview::class,
-      HairlineCpuChart::class,
-      HairlineMemoryChart::class,
-      HairlineNetworkChart::class,
     ]);
 
     FilamentView::registerRenderHook(
       PanelsRenderHook::SCRIPTS_AFTER,
-      fn(): string => $this->buttonsFxScript() . $this->descriptionTruncation() . $this->chartForwarder(),
+      fn(): string => $this->buttonsFxScript() . $this->descriptionTruncation(),
     );
   }
 
@@ -142,12 +139,12 @@ class HairlineProvider extends ServiceProvider
     return $js === false ? "" : "<script data-hairline>" . $js . "</script>";
   }
 
-  private function chartForwarder(): string
-  {
-    $js = @file_get_contents(
-      dirname(__DIR__, 2) . "/resources/js/chart-forwarder.js",
-    );
-    return $js === false ? "" : "<script data-hairline>" . $js . "</script>";
-  }
-  
+  // private function chartForwarder(): string
+  // {
+  //   $js = @file_get_contents(
+  //     dirname(__DIR__, 2) . "/resources/js/chart-forwarder.js",
+  //   );
+  //   return $js === false ? "" : "<script data-hairline>" . $js . "</script>";
+  // }
+
 }
