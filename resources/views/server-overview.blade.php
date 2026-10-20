@@ -48,7 +48,13 @@
         </tr>
         <tr>
           <th>Expires</th>
-          <td colspan="3">{{ $orderExpiry }}</td>
+          <td colspan="3">
+            @if ($orderExpiryAt)
+            <span class="hl-expiry" data-expiry="{{ $orderExpiryAt }}">—</span>
+            @else
+            —
+            @endif
+          </td>
         </tr>
       </tbody>
     </table>
@@ -65,7 +71,6 @@
   };
 
   const setDot = (state) => {
-    // Only the first (metrics) overview table has the live status dot.
     const cell = document.querySelector('.hl-overview .hl-dot');
     if (!cell) return;
     cell.className = `hl-dot hl-${DOT_MAP[state] ?? 'busy'}`;
@@ -76,5 +81,45 @@
   }) => {
     if (state) setDot(state);
   });
+
+  const pad = (n) => String(n).padStart(2, '0');
+
+  const formatRemaining = (ms) => {
+    if (ms <= 0) return 'Expired';
+
+    const totalSec = Math.floor(ms / 1000);
+    const days = Math.floor(totalSec / 86400);
+    const hours = Math.floor((totalSec % 86400) / 3600);
+    const mins = Math.floor((totalSec % 3600) / 60);
+    const secs = totalSec % 60;
+
+    if (days >= 1) {
+      return `${days}d ${hours}h remaining`;
+    }
+
+    return `${pad(hours)}:${pad(mins)}:${pad(secs)} remaining`;
+  };
+
+  const formatAbsoluteLocal = (ms) =>
+    new Date(ms).toLocaleString(undefined, {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+
+  const tickExpiry = () => {
+    document.querySelectorAll('.hl-expiry[data-expiry]').forEach((el) => {
+      const end = Date.parse(el.dataset.expiry);
+      if (Number.isNaN(end)) return;
+
+      el.textContent = `${formatAbsoluteLocal(end)} (${formatRemaining(end - Date.now())})`;
+    });
+  };
+
+  tickExpiry();
+  setInterval(tickExpiry, 1000);
 </script>
 @endscript

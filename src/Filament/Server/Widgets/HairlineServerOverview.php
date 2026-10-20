@@ -44,6 +44,11 @@ class HairlineServerOverview extends Widget
       'orderStatus' => $this->formatLabel($order?->status),
       'orderSubplan' => $this->formatLabel($order?->subplan),
       'orderExpiry' => $this->formatExpiry($order?->expiry_date),
+      'orderExpiryAt' => $order?->expiry_date
+        ? \Carbon\Carbon::parse($order->expiry_date)
+        ->timezone(config('app.timezone'))
+        ->toIso8601String()
+        : null,
     ];
   }
 
