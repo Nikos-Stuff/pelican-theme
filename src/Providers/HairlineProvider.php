@@ -60,6 +60,9 @@ class HairlineProvider extends ServiceProvider
     View::prependLocation(dirname(__DIR__, 2) . "/resources/views-override");
     Console::registerCustomWidgets(ConsoleWidgetPosition::Top, [
       HairlineServerOverview::class,
+      HairlineCpuChart::class,
+      HairlineMemoryChart::class,
+      HairlineNetworkChart::class,
     ]);
 
     FilamentView::registerRenderHook(
