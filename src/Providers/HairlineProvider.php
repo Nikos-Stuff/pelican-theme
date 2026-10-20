@@ -17,6 +17,25 @@ use NikosStuff\NsTheme\Filament\Server\Widgets\HairlineServerOverview;
 
 class HairlineProvider extends ServiceProvider
 {
+  // * Experimental Registering Stuff - Idk if it will work on themes ! *
+  public function register(): void
+  {
+    config([
+      'database.connections.hosting' => [
+        'driver' => 'mysql',
+        'host' => env('DB_HOSTING_HOST', '127.0.0.1'),
+        'port' => env('DB_HOSTING_PORT', '3306'),
+        'database' => env('DB_HOSTING_DATABASE', 'hosting_orders'),
+        'username' => env('DB_HOSTING_USERNAME', 'manager'),
+        'password' => env('DB_HOSTING_PASSWORD', ''),
+        'charset' => 'utf8mb4',
+        'collation' => 'utf8mb4_unicode_ci',
+        'prefix' => '',
+        'strict' => true,
+      ],
+    ]);
+  }
+
   public function boot(): void
   {
     $this->app->booted(fn() => $this->registerPalette());
