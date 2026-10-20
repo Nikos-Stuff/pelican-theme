@@ -347,7 +347,11 @@ body,
 .fi-pagination-items {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0;
+  border: 1px solid #dfe2e7;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #ffffff;
 }
 
 .fi-pagination-item {
@@ -355,12 +359,16 @@ body,
   align-items: center;
 }
 
+.fi-pagination-item + .fi-pagination-item {
+  border-inline-start: none;
+}
+
 .fi-pagination-item-btn {
   position: relative;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  border-radius: 6px !important;
+  border-radius: 0 !important;
   min-width: 2rem;
   height: 2rem;
   padding: 0 0.55rem !important;
@@ -368,7 +376,7 @@ body,
   font-weight: 500;
   line-height: 1 !important;
   box-shadow: none !important;
-  border: 1px solid transparent !important;
+  border: 0 !important;
   background: transparent !important;
   color: #6b7280 !important;
 }
@@ -382,7 +390,6 @@ body,
 .fi-pagination-item.fi-active .fi-pagination-item-btn:hover {
   color: #005ce6 !important;
   background: rgba(0, 111, 255, 0.08) !important;
-  border-color: transparent !important;
 }
 
 .fi-pagination-item-label {
@@ -398,9 +405,13 @@ body,
   color: inherit !important;
 }
 
-/* Keep border-glow from shifting layout */
-.fi-pagination-item-btn .border-glow-layer {
+/*.fi-pagination-item-btn .border-glow-layer {
   pointer-events: none;
+}*/
+
+:where(.dark) .fi-pagination-items {
+  border-color: #2c2f36;
+  background: #1e2126;
 }
 
 :where(.dark) .fi-pagination-item-btn {
