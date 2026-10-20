@@ -38,6 +38,11 @@ class HairlineProvider extends ServiceProvider
 
   public function boot(): void
   {
+    FilamentView::registerRenderHook(
+      PanelsRenderHook::FOOTER,
+      fn(): string => view('hairline::footer')->render(),
+    );
+
     $this->app->booted(fn() => $this->registerPalette());
 
     FilamentView::registerRenderHook(
