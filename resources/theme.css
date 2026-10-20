@@ -343,19 +343,30 @@ body,
   font-weight: 600;
 }
 
-/* ═══ Pagination — hairline (soft active, not solid primary) ═══ */
+/* ═══ Pagination ═══ */
 .fi-pagination-items {
+  display: flex;
+  align-items: center;
   gap: 0.25rem;
 }
 
-.fi-pagination-item-btn,
-.fi-pagination-item.fi-active .fi-pagination-item-btn {
+.fi-pagination-item {
+  display: flex;
+  align-items: center;
+}
+
+.fi-pagination-item-btn {
+  position: relative;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   border-radius: 6px !important;
   min-width: 2rem;
   height: 2rem;
   padding: 0 0.55rem !important;
   font-size: 0.8125rem !important;
   font-weight: 500;
+  line-height: 1 !important;
   box-shadow: none !important;
   border: 1px solid transparent !important;
   background: transparent !important;
@@ -367,7 +378,6 @@ body,
   color: #1b1e24 !important;
 }
 
-/* Soft blue wash — same as .fi-tabs-item.fi-active */
 .fi-pagination-item.fi-active .fi-pagination-item-btn,
 .fi-pagination-item.fi-active .fi-pagination-item-btn:hover {
   color: #005ce6 !important;
@@ -376,7 +386,10 @@ body,
 }
 
 .fi-pagination-item-label {
+  display: block;
+  line-height: 1 !important;
   color: inherit !important;
+  transform: none !important;
 }
 
 .fi-pagination-item-icon {
@@ -385,8 +398,12 @@ body,
   color: inherit !important;
 }
 
-:where(.dark) .fi-pagination-item-btn,
-:where(.dark) .fi-pagination-item.fi-active .fi-pagination-item-btn {
+/* Keep border-glow from shifting layout */
+.fi-pagination-item-btn .border-glow-layer {
+  pointer-events: none;
+}
+
+:where(.dark) .fi-pagination-item-btn {
   color: #9ba1aa !important;
   background: transparent !important;
 }
