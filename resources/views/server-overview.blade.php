@@ -37,11 +37,11 @@
   </div>
 
   {{-- Hosting order: status, plan, expiry (separate table, same hairline style) --}}
-  <div class="hl-overview" style="margin-top: 0.5rem;">
+  <div class="hl-overview" style="margin-top: 1rem;">
     <table class="hl-table">
       <tbody>
         <tr>
-          <th>Status</th>
+          <th>Order</th>
           <td>{{ $orderStatus }}</td>
           <th>Plan</th>
           <td>{{ $orderSubplan }}</td>

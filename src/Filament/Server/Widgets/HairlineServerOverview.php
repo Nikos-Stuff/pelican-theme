@@ -54,13 +54,16 @@ class HairlineServerOverview extends Widget
   private function orderFor(Server $server): ?object
   {
     try {
-      return DB::connection('hosting')
-        ->table('orders')
-        ->where('pelican_server_id', $server->id)
-        ->orderByDesc('id')
-        ->first();
+      return cache()->remember(
+        "hosting.order.{$server->id}",
+        now()->addMinutes(5),
+        fn() => DB::connection('hosting')
+          ->table('orders')
+          ->where('pelican_server_id', $server->id)
+          ->orderByDesc('id')
+          ->first()
+      );
     } catch (\Throwable) {
-      // Connection missing / table unreachable — overview still renders.
       return null;
     }
   }
