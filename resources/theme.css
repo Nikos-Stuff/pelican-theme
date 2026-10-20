@@ -343,56 +343,63 @@ body,
   font-weight: 600;
 }
 
-/* ═══ Pagination — match tabs / hairline controls ═══ */
+/* ═══ Pagination — hairline (soft active, not solid primary) ═══ */
 .fi-pagination-items {
   gap: 0.25rem;
 }
 
-.fi-pagination-item-btn {
-  border-radius: 6px;
+.fi-pagination-item-btn,
+.fi-pagination-item.fi-active .fi-pagination-item-btn {
+  border-radius: 6px !important;
   min-width: 2rem;
   height: 2rem;
-  padding: 0 0.55rem;
-  font-size: 0.8125rem;
+  padding: 0 0.55rem !important;
+  font-size: 0.8125rem !important;
   font-weight: 500;
-  color: #6b7280;
-  border: 1px solid transparent;
-  background: transparent;
-  box-shadow: none;
-  transition:
-    background-color 120ms ease,
-    border-color 120ms ease,
-    color 120ms ease;
+  box-shadow: none !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  color: #6b7280 !important;
 }
 
 .fi-pagination-item-btn:hover {
-  background: rgba(0, 0, 0, 0.05);
-  color: #1b1e24;
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: #1b1e24 !important;
 }
 
-.fi-pagination-item.fi-active .fi-pagination-item-btn {
-  color: #005ce6;
-  background: rgba(0, 111, 255, 0.08);
-  border-color: transparent;
+/* Soft blue wash — same as .fi-tabs-item.fi-active */
+.fi-pagination-item.fi-active .fi-pagination-item-btn,
+.fi-pagination-item.fi-active .fi-pagination-item-btn:hover {
+  color: #005ce6 !important;
+  background: rgba(0, 111, 255, 0.08) !important;
+  border-color: transparent !important;
+}
+
+.fi-pagination-item-label {
+  color: inherit !important;
 }
 
 .fi-pagination-item-icon {
   width: 1rem;
   height: 1rem;
+  color: inherit !important;
 }
 
-:where(.dark) .fi-pagination-item-btn {
-  color: #9ba1aa;
+:where(.dark) .fi-pagination-item-btn,
+:where(.dark) .fi-pagination-item.fi-active .fi-pagination-item-btn {
+  color: #9ba1aa !important;
+  background: transparent !important;
 }
 
 :where(.dark) .fi-pagination-item-btn:hover {
-  background: rgba(255, 255, 255, 0.07);
-  color: #eef0f2;
+  background: rgba(255, 255, 255, 0.07) !important;
+  color: #eef0f2 !important;
 }
 
-:where(.dark) .fi-pagination-item.fi-active .fi-pagination-item-btn {
-  color: #66a5ff;
-  background: rgba(0, 111, 255, 0.16);
+:where(.dark) .fi-pagination-item.fi-active .fi-pagination-item-btn,
+:where(.dark) .fi-pagination-item.fi-active .fi-pagination-item-btn:hover {
+  color: #66a5ff !important;
+  background: rgba(0, 111, 255, 0.16) !important;
 }
 
 /* ═══ 9. Modal: 40% overlay + slight blur (guide) ═══ */
