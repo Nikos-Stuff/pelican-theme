@@ -51,7 +51,7 @@
         <tr>
           <th>Renewal</th>
           <td>
-            @if ($orderExpiryAt)
+            @if ($orderExpiryAt && strtolower($orderSubplan) !== 'free')
             <span class="hl-renewal" data-expiry="{{ $orderExpiryAt }}">—</span>
             @else
             —
