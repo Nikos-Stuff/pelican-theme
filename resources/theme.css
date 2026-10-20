@@ -29,9 +29,23 @@ div[wire\:partial="schema-component::form.top_navigation"] {
   display: none !important;
 }
 
-/* Hide stock Filament footer (we render our own via hook) */
-.fi-footer:not(:has(.relative)) {
+/* Hide stock Filament footer */
+footer:has(a[href*="pelican.dev/docs/#core-team"]) {
   display: none !important;
+}
+
+/* Our custom footer styles */
+.hl-footer a {
+  transition: color 150ms ease;
+}
+.hl-footer a:hover {
+  color: rgb(var(--primary-600));
+}
+:where(.dark) .hl-footer a:hover {
+  color: rgb(var(--primary-400));
+}
+.hl-footer a.hl-credit:hover {
+  color: rgb(var(--c-50));
 }
 
 /* Force the main toggle container to 6px corners */
@@ -44,6 +58,8 @@ div[wire\:partial="schema-component::form.top_navigation"] {
 .fi-toggle > div > div {
   border-radius: 4px !important;
 }
+
+
 
 /* ═══ Hide global scrollbars while preserving scroll functionality ═══ */
 html {
