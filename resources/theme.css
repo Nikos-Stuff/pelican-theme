@@ -383,9 +383,6 @@ body,
   background: #ffffff;
   box-shadow: none;
 }
-.fi-pagination-items:not([hidden]) {
-  display: flex;
-}
 
 .fi-pagination-item {
   display: flex;
@@ -1503,11 +1500,6 @@ body,
   }
 }
 
-@media (max-width: 900px) {
-  .fi-pagination-items {
-    display: none !important;
-  }
-}
 
 :where(.dark) .hl-table tr {
   border-bottom-color: #2c2f36;
