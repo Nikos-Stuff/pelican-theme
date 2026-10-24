@@ -1421,9 +1421,7 @@ body,
 
 /* ═══ 26. Mobile Responsiveness (Hairline Overview) ═══ */
 @media (max-width: 640px) {
-  .fi-pagination-records-per-page-select-ctn,
-  .fi-pagination-records-per-page-select,
-  .fi-pagination-records-per-page-select.fi-compact {
+  .fi-pagination-items {
     display: none !important;
   }
 
