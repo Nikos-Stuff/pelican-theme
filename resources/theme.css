@@ -1421,6 +1421,12 @@ body,
 
 /* ═══ 26. Mobile Responsiveness (Hairline Overview) ═══ */
 @media (max-width: 640px) {
+  .fi-pagination-records-per-page-select-ctn,
+  .fi-pagination-records-per-page-select,
+  .fi-pagination-records-per-page-select.fi-compact {
+    display: none !important;
+  }
+
   /* Collapse side-by-side grid columns into a single vertical stack */
   .fi-fo-repeater-item .fi-fo-field,
   .fi-fo-repeater-item .fi-in-entry,
