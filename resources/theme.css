@@ -1503,7 +1503,7 @@ body,
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .fi-pagination-items {
     display: none !important;
   }
