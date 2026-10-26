@@ -59,6 +59,38 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+/* Thin overlay-style scrollbar on sidebar nav */
+.fi-sidebar-nav {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.fi-sidebar-nav::-webkit-scrollbar {
+  width: 1px;
+  height: 1px;
+}
+
+.fi-sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.fi-sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 1px;
+}
+
+.fi-sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Dark mode tweak */
+:where(.dark) .fi-sidebar-nav {
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+:where(.dark) .fi-sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+}
+
 /* ═══ 1. Typography & Density Standards: Based on 13px, compact spacing. ═══ */
 body,
 .fi-body {
