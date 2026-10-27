@@ -1530,6 +1530,16 @@ body,
   .hl-table td {
     width: 65%;
   }
+
+  /* Fix breaking of table cells on small screens */
+  .hl-table td .hl-expiry,
+  .hl-table td .hl-renewal {
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
 }
 
 
