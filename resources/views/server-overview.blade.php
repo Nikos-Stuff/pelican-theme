@@ -1,4 +1,4 @@
-{{-- Attribute table (#61). One table instead of six core cards — core ServerOverview is hidden via CSS.
+gry{{-- Attribute table (#61). One table instead of six core cards — core ServerOverview is hidden via CSS.
 
      Must wrap in <x-filament-widgets::widget> so getColumnSpan() becomes grid-column
      (widget.blade: $attributes->gridColumn(...)). Without it, columnSpan='full' has nowhere
@@ -58,13 +58,27 @@
             @endif
           </td>
           <th>Expires</th>
-          <td>
-            @if ($orderExpiryAt)
-            <span class="hl-expiry" data-expiry="{{ $orderExpiryAt }}">—</span>
-            @else
-            —
-            @endif
-          </td>
+<td>
+  @if ($orderExpiryAt)
+    <span class="hl-expiry" data-expiry="{{ $orderExpiryAt }}">—</span>
+  @else
+    —
+  @endif
+
+  @if (strtolower($orderSubplan) === 'free')
+    <x-filament::button
+      tag="a"
+      href="https://hosting.nikostuff.com/extendfreeserver?id={{ $serverUuid }}"
+      size="sm"
+      color="gray"
+      outlined
+      class="ms-2 align-middle"
+      target="_blank"
+    >
+      Extend
+    </x-filament::button>
+  @endif
+</td>
         </tr>
       </tbody>
     </table>
