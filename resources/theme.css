@@ -157,6 +157,8 @@ body,
 .fi-ta-ctn,
 .fi-wi-stats-overview-stat,
 .fi-dropdown-panel,
+.fi-empty-state,
+.fi-sc-empty-state,
 .fi-modal-window {
   border-radius: 6px;
   box-shadow: none;
@@ -335,6 +337,8 @@ body,
 :where(.dark) .fi-section,
 :where(.dark) .fi-ta-ctn,
 :where(.dark) .fi-dropdown-panel,
+:where(.dark) .fi-empty-state,
+:where(.dark) .fi-sc-empty-state,
 :where(.dark) .fi-modal-window {
   border-color: #2c2f36;
   background-color: #1e2126;
