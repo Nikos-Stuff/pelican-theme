@@ -57,7 +57,7 @@
             —
             @endif
           </td>
-          <th>Expires</th>
+<th>Expires</th>
 <td>
   @if ($orderExpiryAt)
     <span class="hl-expiry" data-expiry="{{ $orderExpiryAt }}">—</span>
@@ -66,17 +66,19 @@
   @endif
 
   @if (strtolower($orderSubplan) === 'free')
-    <x-filament::button
-      tag="a"
-      href="https://hosting.nikostuff.com/extendfreeserver?id={{ $serverUuid }}"
-      size="sm"
-      color="gray"
-      outlined
-      class="ms-2 align-middle"
-      target="_blank"
-    >
-      Extend
-    </x-filament::button>
+    <div class="mt-1.5">
+      <x-filament::button
+        tag="a"
+        href="https://hosting.nikostuff.com/extendfreeserver?id={{ $serverUuid }}"
+        size="sm"
+        color="gray"
+        outlined
+        class="w-full justify-center"
+        target="_blank"
+      >
+        Extend Free Server
+      </x-filament::button>
+    </div>
   @endif
 </td>
         </tr>
