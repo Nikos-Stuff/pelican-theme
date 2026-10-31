@@ -1451,7 +1451,7 @@ body,
 /* ═══ 26. Mobile Responsiveness (Hairline Overview) ═══ */
 @media (max-width: 640px) {
 
-  .hl-table td[colspan="2"] {
+  .hl-table td[colspan="4"] {
     display: block;
     width: 100%;
   }
