@@ -64,23 +64,25 @@
   @else
     —
   @endif
-
-  @if (strtolower($orderSubplan) === 'free')
-    <div class="mt-1.5">
-      <x-filament::button
-        tag="a"
-        href="https://hosting.nikostuff.com/extendfreeserver?id={{ $serverUuid }}"
-        size="sm"
-        color="gray"
-        outlined
-        class="w-full justify-center"
-        target="_blank"
-      >
-        Extend Free Server
-      </x-filament::button>
-    </div>
-  @endif
 </td>
+</tr>
+@if (strtolower($orderSubplan) === 'free')
+<tr>
+  <td colspan="2" style="padding: 0.5rem 0.75rem 0.75rem;">
+    <x-filament::button
+      tag="a"
+      href="https://hosting.nikostuff.com/extendfreeserver?id={{ $serverUuid }}"
+      size="sm"
+      color="gray"
+      outlined
+      class="w-full justify-center"
+      target="_blank"
+    >
+      Extend Free Server
+    </x-filament::button>
+  </td>
+</tr>
+@endif
         </tr>
       </tbody>
     </table>
