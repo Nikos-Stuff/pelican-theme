@@ -63,7 +63,7 @@ class HairlineServerOverview extends Widget
     try {
       return cache()->remember(
         "hosting.order.{$server->id}",
-        now()->addMinutes(5),
+        now()->addMinutes(1),
         fn() => DB::connection('hosting')
           ->table('orders')
           ->where('pelican_server_id', $server->id)
