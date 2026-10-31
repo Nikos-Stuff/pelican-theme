@@ -1,4 +1,4 @@
-gry{{-- Attribute table (#61). One table instead of six core cards — core ServerOverview is hidden via CSS.
+{{-- Attribute table (#61). One table instead of six core cards — core ServerOverview is hidden via CSS.
 
      Must wrap in <x-filament-widgets::widget> so getColumnSpan() becomes grid-column
      (widget.blade: $attributes->gridColumn(...)). Without it, columnSpan='full' has nowhere
