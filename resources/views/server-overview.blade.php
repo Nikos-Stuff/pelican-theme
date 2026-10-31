@@ -66,7 +66,10 @@
   @endif
 </td>
 </tr>
-@if (strtolower($orderSubplan) === 'free')
+@php
+  $plan = strtolower(trim($orderSubplan ?? ''));
+@endphp
+@if ($plan === 'free')
 <tr>
   <td colspan="4" style="padding: 0.5rem 0.75rem 0.75rem;">
     <x-filament::button
@@ -79,6 +82,22 @@
       target="_blank"
     >
       Extend Free Server
+    </x-filament::button>
+  </td>
+</tr>
+@elseif ($plan && $plan !== '—')
+<tr>
+  <td colspan="4" style="padding: 0.5rem 0.75rem 0.75rem;">
+    <x-filament::button
+      tag="a"
+      href="https://billing.stripe.com/p/login/6oUaEWa7abrm9GSdzBdAk00"
+      size="sm"
+      color="gray"
+      outlined
+      class="w-full justify-center"
+      target="_blank"
+    >
+      Manage Subscription
     </x-filament::button>
   </td>
 </tr>
