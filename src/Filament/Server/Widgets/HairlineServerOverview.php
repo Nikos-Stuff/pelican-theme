@@ -51,6 +51,7 @@ class HairlineServerOverview extends Widget
         ->timezone(config('app.timezone'))
         ->toIso8601String()
         : null,
+      'serverUuid' => $server->uuid,
     ];
   }
 
