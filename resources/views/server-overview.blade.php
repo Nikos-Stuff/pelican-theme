@@ -74,7 +74,7 @@
   <td colspan="4" style="padding: 0.5rem 0.75rem 0.75rem;">
     <x-filament::button
       tag="a"
-      href="https://hosting.nikostuff.com/extendfreeserver?id={{ $serverUuid }}"
+      href="https://nshst.com/extendfreeserver?id={{ $serverUuid }}"
       size="sm"
       color="gray"
       outlined

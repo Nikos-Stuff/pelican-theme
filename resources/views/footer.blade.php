@@ -6,8 +6,8 @@
     </div>
 
     <div class="flex gap-4">
-      <a href="https://hosting.nikostuff.com/legal/terms/">Terms of Service</a>
-      <a href="https://hosting.nikostuff.com/legal/privacy/">Privacy Policy</a>
+      <a href="https://nshst.com/legal/terms/">Terms of Service</a>
+      <a href="https://nshst.com/legal/privacy/">Privacy Policy</a>
     </div>
 
     <div class="text-[10px] opacity-75 max-w-sm text-center leading-relaxed">
