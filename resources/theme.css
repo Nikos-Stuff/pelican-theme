@@ -411,13 +411,13 @@ body,
 }
 
 /* ═══ Pagination — visual shell only ═══ */
-.fi-pagination-items {
+/*.fi-pagination-items {
   border-radius: 4px;
   overflow: hidden;
   border: 1px solid rgb(0 0 0 / 0.1);
   background: #ffffff;
   box-shadow: none;
-}
+}*/
 
 .fi-pagination-item-btn {
   border-radius: 0 !important;
