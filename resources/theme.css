@@ -10,9 +10,15 @@ footer:has(a[href*="pelican.dev/docs/#core-team"]) {
   display: none !important;
 }
 
-.fi-wi-widget:has([wire\:name="App\\Filament\\Server\\Widgets\\ServerCpuChart"]),
-.fi-wi-widget:has([wire\:name="App\\Filament\\Server\\Widgets\\ServerMemoryChart"]),
-.fi-wi-widget:has([wire\:name="App\\Filament\\Server\\Widgets\\ServerNetworkChart"]) {
+.fi-wi-widget:has(
+  [wire\:name="App\\Filament\\Server\\Widgets\\ServerCpuChart"]
+),
+.fi-wi-widget:has(
+  [wire\:name="App\\Filament\\Server\\Widgets\\ServerMemoryChart"]
+),
+.fi-wi-widget:has(
+  [wire\:name="App\\Filament\\Server\\Widgets\\ServerNetworkChart"]
+) {
   display: none !important;
 }
 
@@ -40,8 +46,6 @@ footer:has(a[href*="pelican.dev/docs/#core-team"]) {
 .fi-toggle > div > div {
   border-radius: 4px !important;
 }
-
-
 
 /* ═══ Hide global scrollbars while preserving scroll functionality ═══ */
 html {
@@ -406,41 +410,19 @@ body,
   font-weight: 600;
 }
 
-/* ═══ Pagination — same shell as .fi-input-wrp ═══ */
+/* ═══ Pagination — visual shell only ═══ */
 .fi-pagination-items {
-  /* Do not force display — Filament hides this (and the per-page switcher)
-     on small screens / when there's only one page. */
-  align-items: center;
-  gap: 0;
   border-radius: 4px;
   overflow: hidden;
-  /* light: same soft ring as Filament inputs */
   border: 1px solid rgb(0 0 0 / 0.1);
   background: #ffffff;
   box-shadow: none;
 }
 
-.fi-pagination-item {
-  display: flex;
-  align-items: center;
-}
-
-.fi-pagination-item + .fi-pagination-item {
-  border-inline-start: none;
-}
-
 .fi-pagination-item-btn {
-  position: relative;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
   border-radius: 0 !important;
-  min-width: 2rem;
-  height: 2rem;
-  padding: 0 0.55rem !important;
   font-size: 0.8125rem !important;
   font-weight: 500;
-  line-height: 1 !important;
   box-shadow: none !important;
   border: 0 !important;
   outline: none !important;
@@ -460,20 +442,14 @@ body,
 }
 
 .fi-pagination-item-label {
-  display: block;
-  line-height: 1 !important;
   color: inherit !important;
-  transform: none !important;
 }
 
 .fi-pagination-item-icon {
-  width: 1rem;
-  height: 1rem;
   color: inherit !important;
 }
 
 :where(.dark) .fi-pagination-items {
-  /* dark: same as Filament input-wrp (white/10 ring + white/5 fill) */
   border-color: rgb(255 255 255 / 0.1);
   background: rgb(255 255 255 / 0.05);
 }
@@ -1454,7 +1430,6 @@ body,
 
 /* ═══ 26. Mobile Responsiveness (Hairline Overview) ═══ */
 @media (max-width: 640px) {
-
   .hl-table td[colspan="4"] {
     display: block;
     width: 100%;
@@ -1550,7 +1525,6 @@ body,
     line-height: 1.35;
   }
 }
-
 
 :where(.dark) .hl-table tr {
   border-bottom-color: #2c2f36;
