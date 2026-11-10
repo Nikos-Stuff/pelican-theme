@@ -1025,7 +1025,24 @@ body,
 
 .fi-fo-repeater,
 .fi-fieldset {
-  --hl-key: 22%;
+  --hl-key: 28%;
+}
+
+/* Stop labels bleeding into the input */
+.fi-fo-repeater-item .fi-fo-field-label-col,
+.fi-fieldset .fi-fo-field-label-col,
+.fi-fo-repeater-item .fi-in-entry-label-col,
+.fi-fieldset .fi-in-entry-label-col {
+  overflow: hidden;
+  min-width: 0;
+}
+
+.fi-fo-repeater-item .fi-fo-field-label-content,
+.fi-fieldset .fi-fo-field-label-content,
+.fi-fieldset .fi-in-entry-label {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .fi-fo-repeater-item .fi-fo-field,
