@@ -665,9 +665,6 @@ body,
 .hl-card-desc p {
   font-size: 0.75rem;
 }
-/*.hl-card-metrics {
-  gap: 0.75rem !important;
-}*/
 /* Side egg/icon thumbnail */
 .hl-card-thumb {
   flex: 0 0 3.25rem;
@@ -732,19 +729,6 @@ body,
 :where(.dark) .hl-metric span[class*="text-sm"] {
   color: #7c828c !important;
 }
-/*.fi-ta-record-content-ctn {
-  padding: 0.85rem 1rem !important;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}*/
-/*.fi-ta-content-ctn .fi-ta-content.fi-ta-content-grid .fi-ta-record-content-ctn {
-  padding: 0 !important;
-  gap: 0;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}*/
 
 .fi-ta-record .fi-ta-record-content {
   gap: 0.5rem;
@@ -1025,28 +1009,31 @@ body,
 
 .fi-fo-repeater,
 .fi-fieldset {
-  --hl-key: 28%;
+  --hl-key: 22%;
 }
 
-/* Stop labels bleeding into the input */
-.fi-fo-repeater-item .fi-fo-field-label-col,
-.fi-fieldset .fi-fo-field-label-col,
-.fi-fo-repeater-item .fi-in-entry-label-col,
-.fi-fieldset .fi-in-entry-label-col {
-  overflow: hidden;
-  min-width: 0;
-}
-
-.fi-fo-repeater-item .fi-fo-field-label-content,
-.fi-fieldset .fi-fo-field-label-content,
-.fi-fieldset .fi-in-entry-label {
-  white-space: normal;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
+/* Repeater items: stack label above input so they never collide */
 .fi-fo-repeater-item .fi-fo-field,
-.fi-fo-repeater-item .fi-in-entry,
+.fi-fo-repeater-item .fi-in-entry {
+  grid-template-columns: minmax(0, 1fr) !important;
+  row-gap: 0.35rem;
+  padding: 0.5rem 0.75rem;
+  align-items: start;
+}
+
+.fi-fo-repeater-item .fi-fo-field > .fi-fo-field-label-col,
+.fi-fo-repeater-item .fi-in-entry > .fi-in-entry-label-col {
+  padding-top: 0;
+}
+
+.fi-fo-repeater-item .fi-fo-field > .fi-fo-field-content-col,
+.fi-fo-repeater-item .fi-in-entry > .fi-in-entry-content-col,
+.fi-fo-repeater-item .fi-fo-field > .fi-fo-field-label-col ~ .fi-fo-field-content-col,
+.fi-fo-repeater-item .fi-in-entry > .fi-in-entry-label-col ~ .fi-in-entry-content-col {
+  grid-column: 1 !important;
+}
+
+/* Fieldsets keep the side-by-side table style */
 .fi-fieldset .fi-fo-field,
 .fi-fieldset .fi-in-entry {
   grid-template-columns: var(--hl-key) minmax(0, 1fr);
@@ -1056,7 +1043,6 @@ body,
   padding: 0.75rem;
 }
 
-.fi-fo-repeater-item .fi-fo-field > .fi-fo-field-label-col,
 .fi-fieldset .fi-fo-field > .fi-fo-field-label-col,
 .fi-fieldset .fi-in-entry > .fi-in-entry-label-col {
   align-items: start;
@@ -1065,21 +1051,11 @@ body,
   padding-top: 0.375rem;
 }
 
-.fi-fo-repeater-item .fi-fo-field > .fi-fo-field-content-col,
 .fi-fieldset .fi-fo-field > .fi-fo-field-content-col,
-.fi-fo-repeater-item .fi-in-entry > .fi-in-entry-content-col,
 .fi-fieldset .fi-in-entry > .fi-in-entry-content-col {
   grid-column: 1 / -1;
 }
-.fi-fo-repeater-item
-  .fi-fo-field
-  > .fi-fo-field-label-col
-  ~ .fi-fo-field-content-col,
 .fi-fieldset .fi-fo-field > .fi-fo-field-label-col ~ .fi-fo-field-content-col,
-.fi-fo-repeater-item
-  .fi-in-entry
-  > .fi-in-entry-label-col
-  ~ .fi-in-entry-content-col,
 .fi-fieldset .fi-in-entry > .fi-in-entry-label-col ~ .fi-in-entry-content-col {
   grid-column: 2;
 }
@@ -1130,7 +1106,6 @@ body,
   gap: 0;
   border: 1px solid #dfe2e7;
   border-radius: 6px;
-  /*overflow: hidden;*/
   background: #ffffff;
 }
 
@@ -1166,7 +1141,7 @@ body,
 .fi-fieldset > legend {
   float: left;
   width: 100%;
-  margin: 0; /* UA 기본 여백이 남아 좌측으로 밀리는 것 차단 */
+  margin: 0;
   padding: 0.4rem 0.75rem;
   background: #fafbfc;
   text-transform: uppercase;
