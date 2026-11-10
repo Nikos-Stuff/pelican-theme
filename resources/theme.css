@@ -109,6 +109,11 @@ body,
     sans-serif !important;
   font-size: 13px;
   letter-spacing: -0.008em;
+  background-image:
+    radial-gradient(circle at 50% 20%, rgba(0, 111, 255, 0.01), transparent 60%),
+    radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px) !important;
+  background-size: 100% 100%, 20px 20px !important;
+  background-attachment: fixed !important;
 }
 .fi-body
   :where(*):not(code):not(pre):not(kbd):not(samp):not(.hl-mono):not(.codicon) {
@@ -337,6 +342,11 @@ body,
 /* ═══ 7. Dark Mode alignment (Light First, but must not break) ═══ */
 :where(.dark) .fi-body {
   background-color: #17191e;
+  background-image:
+    radial-gradient(circle at 50% 20%, rgba(0, 111, 255, 0.01), transparent 60%),
+    radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 100% 100%, 20px 20px;
+  background-attachment: fixed;
 }
 :where(.dark) .fi-section,
 :where(.dark) .fi-ta-ctn,
