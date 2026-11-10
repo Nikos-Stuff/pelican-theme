@@ -1043,6 +1043,12 @@ body,
   padding: 0.75rem;
 }
 
+/* Keep all fieldset labels top-aligned */
+.fi-fieldset .fi-fo-field-label-col,
+.fi-fieldset .fi-in-entry-label-col {
+  align-self: start;
+}
+
 .fi-fieldset .fi-fo-field > .fi-fo-field-label-col,
 .fi-fieldset .fi-in-entry > .fi-in-entry-label-col {
   align-items: start;
