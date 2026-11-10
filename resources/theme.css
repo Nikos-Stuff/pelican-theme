@@ -341,7 +341,7 @@ body,
 
 /* ═══ 7. Dark Mode alignment (Light First, but must not break) ═══ */
 :where(.dark) .fi-body {
-  background-color: #17191e;
+  background-color: #14161a;
   background-image:
     radial-gradient(circle at 50% 20%, rgba(0, 111, 255, 0.01), transparent 60%),
     radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
