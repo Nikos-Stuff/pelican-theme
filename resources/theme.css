@@ -1113,7 +1113,7 @@ body,
   gap: 0;
   border: 1px solid #dfe2e7;
   border-radius: 6px;
-  overflow: hidden;
+  /*overflow: hidden;*/
   background: #ffffff;
 }
 
