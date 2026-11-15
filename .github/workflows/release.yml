@@ -1,8 +1,9 @@
 name: Build Release Asset
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -14,16 +15,75 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
 
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
           python-version: '3.x'
 
+      - name: Bump patch version in plugin.json and update.json
+        id: bump
+        run: |
+          python3 - <<'PY'
+          import json
+
+          def bump_patch(ver: str) -> str:
+              parts = [int(x) for x in ver.strip().split(".")]
+              while len(parts) < 3:
+                  parts.append(0)
+              parts[2] += 1
+              return ".".join(str(p) for p in parts[:3])
+
+          with open("plugin.json", "r", encoding="utf-8") as f:
+              plugin = json.load(f)
+
+          new_ver = bump_patch(plugin["version"])
+          plugin["version"] = new_ver
+
+          with open("plugin.json", "w", encoding="utf-8") as f:
+              json.dump(plugin, f, indent=4, ensure_ascii=False)
+              f.write("\n")
+
+          with open("update.json", "r", encoding="utf-8") as f:
+              update = json.load(f)
+
+          for entry in update.values():
+              if isinstance(entry, dict) and "version" in entry:
+                  entry["version"] = new_ver
+
+          with open("update.json", "w", encoding="utf-8") as f:
+              json.dump(update, f, indent=4, ensure_ascii=False)
+              f.write("\n")
+
+          with open("/tmp/new_version.txt", "w", encoding="utf-8") as out:
+              out.write(new_ver)
+          PY
+          NEW_VER=$(cat /tmp/new_version.txt)
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          echo "version=${NEW_VER}" >> "$GITHUB_OUTPUT"
+          echo "short_sha=${SHORT_SHA}" >> "$GITHUB_OUTPUT"
+          echo "tag_name=v${NEW_VER}-${SHORT_SHA}" >> "$GITHUB_OUTPUT"
+
+      - name: Commit version bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add plugin.json update.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: bump version to v${{ steps.bump.outputs.version }} [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
+
       - name: Run release build script
         run: bash scripts/build-release.sh
 
-      - name: Upload zip to GitHub Release
+      - name: Create Release and Upload zip
         uses: softprops/action-gh-release@v3
         with:
+          tag_name: ${{ steps.bump.outputs.tag_name }}
+          name: "Commit - ${{ steps.bump.outputs.short_sha }}"
           files: dist/*.zip
+          generate_release_notes: true
