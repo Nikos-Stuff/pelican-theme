@@ -486,6 +486,38 @@ body,
   backdrop-filter: blur(2px);
 }
 
+/* ═══ 9.1. Console buttons stuff ═══ */
+.console-tools {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.console-tools .fi-icon-btn {
+  width: 1.85rem;
+  height: 1.85rem;
+  margin: 0;
+  background-color: #1e2126;
+  border: 1px solid #2c2f36;
+  border-radius: 4px;
+  color: #9ba1aa;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+}
+
+.console-tools .fi-icon-btn:hover {
+  background-color: #23272d;
+  border-color: #3a3f47;
+  color: #eef0f2;
+}
+
+.console-tools .fi-icon-btn .fi-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
 /* ═══ 10. Icon button: Faint background on hover only ═══ */
 .fi-icon-btn {
   border-radius: 4px;
